@@ -1,0 +1,22 @@
+{
+	"$schema": "https://json.schemastore.org/package.json",
+	"name": "rivalium-bot",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "tsx watch src/bot.ts",
+		"start": "node dist/bot.js",
+		"build": "tsup src/bot.ts --minify"
+	},
+	"dependencies": {
+		"discord.js": "^14.15.3",
+		"dotenv": "^16.4.5"
+	},
+	"devDependencies": {
+		"@sapphire/ts-config": "^5.0.0",
+		"@types/node": "^18.18.8",
+		"tsup": "^8.2.4",
+		"tsx": "^4.17.0",
+		"typescript": "^5.5.4"
+	}
+}
