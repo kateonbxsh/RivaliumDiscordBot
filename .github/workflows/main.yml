@@ -1,0 +1,51 @@
+name: Deployment
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: SSH Deployment
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+            [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+            export PNPM_HOME="/home/deployment/.local/share/pnpm"
+            case ":$PATH:" in
+              *":$PNPM_HOME:"*) ;;
+              *) export PATH="$PNPM_HOME:$PATH" ;;
+            esac
+          
+            nvm use lts/iron
+            
+            pm2 stop DiscordBot || true
+            pm2 delete DiscordBot || true
+            
+            cd ~/bot/
+            
+            git stash push --include-untracked --quiet 
+            git stash drop
+            git pull origin production
+            git status
+            
+            pnpm install
+            
+            mkdir -p ./logs
+            chmod 755 ./logs
+
+            export DISCORD_TOKEN=${{ secrets.DISCORD_TOKEN }}
+            export DISCORD_CLIENT_ID=${{ secrets.DISCORD_CLIENT_ID }}
+            
+            pm2 start --name DiscordBot --log ./logs/%YYYY-MM-DD%-logs.log --time npm -- run start:production
