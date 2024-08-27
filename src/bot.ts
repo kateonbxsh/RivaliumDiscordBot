@@ -42,8 +42,11 @@ const rest = new REST().setToken(config.DISCORD_TOKEN);
 		);
 
 		Logger.success(`Successfully reloaded commands.`);
+		
 	} catch (error) {
+		
 		Logger.fatal("Error reloading commands: {}", error);
+		
 	}
 })();
 
@@ -75,9 +78,13 @@ client.on("interactionCreate", interaction => {
 
 })
 
-client.on("ready", (client) => {
+client.on("ready", async (client) => {
 	
 	Logger.success("Bot is ready.");
+	
+	(await client.guilds.fetch()).forEach(guild => {
+		rest.delete(Routes.applicationGuildCommands(config.DISCORD_CLIENT_ID, guild.id));
+	})
 	
 });
 

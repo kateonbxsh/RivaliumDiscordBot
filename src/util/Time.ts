@@ -20,9 +20,10 @@ export default class Time {
         
         let current = ms;
         for (const divider of [1000, 60, 60, 24, 7, 4, 12]) {
+            amounts.push(current % divider); 
             current = Math.floor(current / divider);
-            amounts.push(current);
         }
+        amounts.shift();
         
         const formats = [];
         let i = 0;
