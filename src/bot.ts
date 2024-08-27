@@ -36,9 +36,9 @@ const rest = new REST().setToken(config.DISCORD_TOKEN);
 (async () => {
 	try {
 
-		const data = await rest.put(
+		await rest.put(
 			Routes.applicationCommands(config.DISCORD_CLIENT_ID),
-			{ body: commands },
+			{ body: Array.from(commands.values()).map(command => command.data.toJSON()) },
 		);
 
 		Logger.success(`Successfully reloaded commands.`);
