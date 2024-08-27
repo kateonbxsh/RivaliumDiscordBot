@@ -37,7 +37,7 @@ jobs:
             
             git stash push --include-untracked --quiet 
             git stash drop
-            git pull origin production
+            git pull
             git status
             
             pnpm install
@@ -48,4 +48,4 @@ jobs:
             export DISCORD_TOKEN=${{ secrets.DISCORD_TOKEN }}
             export DISCORD_CLIENT_ID=${{ secrets.DISCORD_CLIENT_ID }}
             
-            pm2 start --name DiscordBot --log ./logs/%YYYY-MM-DD%-logs.log --time npm -- run start:production
+            pm2 start ecosystem.config.js

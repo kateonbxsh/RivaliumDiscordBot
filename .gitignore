@@ -5,3 +5,6 @@ node_modules
 .vscode
 
 package-lock.json
+
+logs/
+pnpm-lock.yaml

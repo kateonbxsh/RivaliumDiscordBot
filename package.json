@@ -5,9 +5,9 @@
 	"private": true,
 	"scripts": {
 		"dev": "tsx watch src/bot.ts",
-		"start:production": "npm run build && npm run start",
 		"start": "node dist/bot.js",
-		"build": "tsup src/bot.ts --minify"
+		"build": "tsup src/bot.ts --minify",
+		"start:production": "npm run build && npm run start"
 	},
 	"dependencies": {
 		"discord.js": "^14.15.3",
