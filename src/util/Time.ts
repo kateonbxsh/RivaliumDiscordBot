@@ -34,7 +34,9 @@ export default class Time {
         }
         
         let finalFormat = formats.join(", ");
-        return finalFormat.replace(/, (?!.*?, )/, " and ");
+        finalFormat = finalFormat.replace(/, (?!.*?, )/, " and ");
+        finalFormat = finalFormat.replace(finalFormat.charAt(0), finalFormat.charAt(0).toUpperCase());
+        return finalFormat;
         
     }
     

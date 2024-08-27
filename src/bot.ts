@@ -63,7 +63,7 @@ for (const file of eventFiles) {
 	}
 }
 
-client.on("interactionCreate", interaction => {
+client.on("interactionCreate", async interaction => {
     
     if (!interaction.isCommand()) {
         return;
@@ -71,7 +71,7 @@ client.on("interactionCreate", interaction => {
     const { commandName } = interaction;
     const command = commands.get(commandName);
     if (command) {
-        command.execute(interaction);
+        await command.execute(interaction);
     } else {
 		Logger.warn("Cannot find command {}", commandName);
 	}
