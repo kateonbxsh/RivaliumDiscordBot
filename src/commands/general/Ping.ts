@@ -5,10 +5,11 @@ export default class PingCommand extends Command {
     
     override data = new SlashCommandBuilder()
         .setName("ping")
-        .setDescription("Replies with Pong!");
+        .setDescription("What rhymes with ping?");
     
-    override execute(interaction: CommandInteraction) {
-        return interaction.reply("Pong!");
+    override async execute(interaction: CommandInteraction) {
+        const message = await interaction.reply("Pong!");
+        message.edit(`Pong! My current ping is \`${this.client.ws.ping}ms\``);
     }
     
 }
