@@ -1,5 +1,6 @@
 import { CommandInteraction, SlashCommandBuilder } from "discord.js";
 import Command from "../../types/Command";
+import Time from "../../util/Time";
 
 export default class PingCommand extends Command {
     
@@ -9,6 +10,7 @@ export default class PingCommand extends Command {
     
     override async execute(interaction: CommandInteraction) {
         const message = await interaction.reply("Pong!");
+        await Time.wait(this.client.ws.ping * 4);
         message.edit(`Pong! My current ping is \`${this.client.ws.ping}ms\``);
     }
     
