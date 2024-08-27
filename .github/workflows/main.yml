@@ -35,8 +35,10 @@ jobs:
             
             cd ~/bot/
             
+            git checkout master
             git stash push --include-untracked --quiet 
             git stash drop
+            git checkout master
             git pull
             git status
             
