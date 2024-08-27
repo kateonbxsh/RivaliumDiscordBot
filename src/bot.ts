@@ -1,4 +1,4 @@
-import { Client, Collection } from "discord.js";
+import { Client, Collection, REST, Routes } from "discord.js";
 import { config } from "./config";
 import path from "path";
 import fs from "fs";
@@ -31,6 +31,21 @@ for (const folder of commandFolders) {
 if (commands.size == 0) {
 	Logger.warn("No commands registered");
 }
+
+const rest = new REST().setToken(config.DISCORD_TOKEN);
+(async () => {
+	try {
+
+		const data = await rest.put(
+			Routes.applicationCommands(config.DISCORD_CLIENT_ID),
+			{ body: commands },
+		);
+
+		Logger.success(`Successfully reloaded commands.`);
+	} catch (error) {
+		Logger.fatal("Error reloading commands: {}", error);
+	}
+})();
 
 const eventsPath = path.join(__dirname, 'events');
 const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
