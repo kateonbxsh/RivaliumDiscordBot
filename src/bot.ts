@@ -83,7 +83,7 @@ client.on("ready", async (client) => {
 	Logger.success("Bot is ready.");
 	
 	(await client.guilds.fetch()).forEach(guild => {
-		rest.delete(Routes.applicationGuildCommands(config.DISCORD_CLIENT_ID, guild.id));
+		rest.put(Routes.applicationGuildCommands(config.DISCORD_CLIENT_ID, guild.id), { body: [] });
 	})
 	
 });
