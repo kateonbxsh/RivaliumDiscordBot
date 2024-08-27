@@ -21,7 +21,7 @@ for (const folder of commandFolders) {
 		const filePath = path.join(commandsPath, file);
 		const command = require(filePath).default;
         if (!isNewable(command)) continue; 
-        let builtCommand = new command() as Command;
+        let builtCommand = new command(client) as Command;
         if (!(builtCommand instanceof Command)) continue;
 		commands.set(builtCommand.data.name, builtCommand);
         Logger.info("Registered command {}", builtCommand.data.name);
