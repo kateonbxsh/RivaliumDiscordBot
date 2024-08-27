@@ -11,7 +11,7 @@ export default class PingCommand extends Command {
     override async execute(interaction: CommandInteraction) {
         const message = await interaction.reply("Pong!");
         await Time.wait(100);
-        message.edit(`Pong! My current ping is \`${this.client.ws.ping >= 0 ? this.client.ws.ping + "ms" : "N/A"}ms\``);
+        message.edit(`Pong! My current ping is \`${this.client.ws.ping >= 0 ? this.client.ws.ping + "ms" : "N/A"}\``);
     }
     
 }
