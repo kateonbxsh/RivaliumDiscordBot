@@ -29,8 +29,7 @@ export default class Time {
         let i = 0;
         for (const name of ["second", "minute", "hour", "day", "week", "month", "year"]) {
             const format = Time.formatName(amounts[i++], name, decorator);
-            if (!format) break;
-            formats.unshift(format);
+            if (format) formats.unshift(format);
         }
         
         let finalFormat = formats.join(", ");
