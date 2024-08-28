@@ -7,7 +7,7 @@ export default class Time {
     }
     
     private static formatName(amount: number, name: string, decorator: string): string | null {
-        if (amount <= 0) return null;
+        if (!amount || amount <= 0) return null;
         const plural = amount > 1;
         return `${decorator}${plural ? amount : (name == "hour" ? "an" : "a")}${decorator} ${name}${plural ? "s" : ""}`
     }
@@ -19,7 +19,7 @@ export default class Time {
         const amounts = [];
         
         let current = ms;
-        for (const divider of [1000, 60, 60, 24, 7, 4, 12]) {
+        for (const divider of [1000, 60, 60, 24, 7, 4, 12, 1]) {
             amounts.push(current % divider); 
             current = Math.floor(current / divider);
         }
