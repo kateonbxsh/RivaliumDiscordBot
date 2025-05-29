@@ -3,7 +3,7 @@ name: Deployment
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   deploy:
@@ -35,11 +35,10 @@ jobs:
             
             cd ~/bot/
             
-            git checkout master
             git stash push --include-untracked --quiet 
             git stash drop
-            git checkout master
-            git pull
+            git checkout main
+            git pull origin main
             git status
             
             pnpm install
